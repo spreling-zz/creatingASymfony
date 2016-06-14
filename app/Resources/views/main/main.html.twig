@@ -16,17 +16,25 @@
                 <h1>Wij willen jouw menig</h1>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 text-blok">
+                Beste eindexamenkandidaat,<br />
+                <br />
+                Jij hebt net een examentraining van Lyceo gevolgd. Wij zijn altijd bezig om de kwaliteit van onze trainingen te verbeteren!<br />
+                Om die reden willen wij graag van je weten wat jij van onze training en onze trainers vindt zodat wij ook in de toekomst<br />
+                de beste trainingen kunnen geven. Alvast bedankt.<br />
+                <br />
+                Veel succes met je examens! <br />
+
+            </div>
+        </div>
         <div class="content-box row table-striped-eva">
-
-
             {{ form_start(form) }}
             {{ form_errors(form) }}
-
                 <div class="row">
                     <div class="col-xs-7 table-header">
                         Beoordeel jezelf: <span class="small">(1= helemaal niet mee eens, 10 = helemaal mee eens)</span>
                     </div>
-
                     <div class="offset-xs-1 col-xs-5 table-header">
                         <div class="row">
                             {% for i in 1..10 %}
@@ -34,19 +42,13 @@
                             {% endfor %}
                         </div>
                     </div>
-
                 </div>
                 {% for child in form.children|keys %}
                     {% if child[0:-3] == "selfQuestions" %}
                         {{ form_row(attribute(form.children,child)) }}
                     {% endif %}
                 {% endfor %}
-
             {{ form_end(form) }}
         </div>
-
     </div>
-
-
-
 {% endblock %}
