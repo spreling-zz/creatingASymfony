@@ -2,13 +2,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Evaluation;
-
 use AppBundle\Form\Type\TenChoiceQuestionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends Controller
@@ -18,28 +15,39 @@ class MainController extends Controller
      */
     public function showAction()
     {
-        $evaluationController = new EvaluationController();
+        $evaluation = $this->getDoctrine()
+            ->getRepository('AppBundle:Evaluation')
+            ->find(9);
 
+        $questions = $evaluation->getQuestions();
+
+        dump($evaluation);
 
         $evaluation = new Evaluation();
-        $form = $this->createFormBuilder($evaluation)
-            ->add('name', TextType::class)
-/*
-        for ($i=0; $i<= 10; $i++){
-            $form->add('selfQuestions_'.$i, TenChoiceQuestionType::class, array(
-                'label' => 'Dit is de vraag',
-            ));
-        }*/
+        $evaluation->setQuestions($questions);
 
 
-            ->add('save', SubmitType::class, array('label' => 'Create Eva'))
+        /*Ik heb geprobberd het formulier middels het active record systeem van symfony te genereren maar dat is
+        niet gelukt. Niet in deze korte tijd. De regel hieronder werkt alleen precies andersom. inplaats van het weergeven
+        van de vragen met de antwoordveld. kan je de vragen zelf aanpassen. voor nu heb ik daarom een handmatig formulier
+        gebouwd.
+        */
+        //$form = $this->createForm(QuestionSetType::class, $evaluation);
+
+        $form = $this->createFormBuilder();
+
+        foreach ($questions as $question) {
+            $form->add('selfQuestions_' . $question->getId(),
+                TenChoiceQuestionType::class, array(
+                    'label' => $question->getQuestion()
+                ));
+        }
+        $form = $form->add('send', SubmitType::class)
             ->getForm();
-        //$form = $this->createForm(Evaluation::class, $evaluation);
 
         $html = $this->container->get('templating')->render(
             'main/main.html.twig',
             array(
-                'name' => 'harm jacob',
                 'form' => $form->createView()
             )
         );

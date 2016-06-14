@@ -1,12 +1,30 @@
 @import "./../../../node_modules/bootstrap/scss/bootstrap.scss";
 
-html {
-    color: red;
+.table-striped-eva div.table-row:nth-of-type(odd) {
+    background-color: #f9f9f9;
 }
-.header-box {
-   // background: #daeeff;
+.table-striped-eva {
+    .table-header{
+        background: white;
+        font-weight: bold;
+        border-bottom: 2px solid #eceeef;
+        padding: .75rem;
+        line-height: 1.5;
+        vertical-align: top;
+        border-top: 1px solid #eceeef;
+    }
+    .table-row>div {
+        display: table-cell;
+        padding: .75rem;
+        line-height: 1.5;
+        vertical-align: top;
+        border-top: 1px solid #eceeef;
+    }
 }
-.content-box {
-   // background: #957bbe;
+.v-center {
+    h1 {
+        margin-top: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
 }
-

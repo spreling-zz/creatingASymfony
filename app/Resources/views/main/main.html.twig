@@ -3,87 +3,48 @@
 
 
 {% block title %}
-    welcome {{ name }}
+    welcome
 {% endblock %}
 {% block body %}
     <div class="container">
 
         <div class="header-box row">
-            <div class="col-md-12">
+            <div class="col-xs-4">
+                <img src="https://www.lyceo.nl/wp-content/themes/lyceo-2015/dist/assets/images/lyceo.png" alt="lyceo"/>
+            </div>
+            <div class="col-xs-6 v-center">
                 <h1>Wij willen jouw menig</h1>
             </div>
         </div>
-        <div class="content-box row">
+        <div class="content-box row table-striped-eva">
+
+
             {{ form_start(form) }}
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
+            {{ form_errors(form) }}
 
-
-            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>1</th>
-                                <th>Beoordeel jezelf: </th>
-                                <th>1 2 3 4 5 6 7 8 9 10</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <label>
-                                    <th scope="row">-</th>
-                                    <td>Ik sta sterker in mijn schoenen voor het examen door het volgen van deze
-                                        training.
-                                    </td>
-                                    <td class="inputbullets">
-                                        <input type="radio" name="optionsRadios" value="option1">
-                                        <input type="radio" name="optionsRadios" value="option2">
-                                        <input type="radio" name="optionsRadios" value="option3">
-                                        <input type="radio" name="optionsRadios" value="option4">
-                                        <input type="radio" name="optionsRadios" value="option5">
-                                        <input type="radio" name="optionsRadios" value="option6">
-                                        <input type="radio" name="optionsRadios" value="option7">
-                                        <input type="radio" name="optionsRadios" value="option8">
-                                        <input type="radio" name="optionsRadios" value="option9">
-                                        <input type="radio" name="optionsRadios" value="option10">
-                                    </td>
-                                </label>
-                            </tr>
-                            <tr>
-                                <label>
-                                    <th scope="row">-</th>
-                                    <td>Ik sta sterker in mijn schoenen voor het examen door het volgen van deze
-                                        training.
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="optionsRadios" value="option1">
-                                        <input type="radio" name="optionsRadios" value="option2">
-                                        <input type="radio" name="optionsRadios" value="option3">
-                                        <input type="radio" name="optionsRadios" value="option4">
-                                        <input type="radio" name="optionsRadios" value="option5">
-                                        <input type="radio" name="optionsRadios" value="option6">
-                                        <input type="radio" name="optionsRadios" value="option7">
-                                        <input type="radio" name="optionsRadios" value="option8">
-                                        <input type="radio" name="optionsRadios" value="option9">
-                                        <input type="radio" name="optionsRadios" value="option10">
-                                    </td>
-                                </label>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-xs-7 table-header">
+                        Beoordeel jezelf: <span class="small">(1= helemaal niet mee eens, 10 = helemaal mee eens)</span>
                     </div>
 
+                    <div class="offset-xs-1 col-xs-5 table-header">
+                        <div class="row">
+                            {% for i in 1..10 %}
+                                <div class="col-xs-1"> {{ i }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
 
                 </div>
-                <form>
-                    <fieldset class="form-group">
+                {% for child in form.children|keys %}
+                    {% if child[0:-3] == "selfQuestions" %}
+                        {{ form_row(attribute(form.children,child)) }}
+                    {% endif %}
+                {% endfor %}
 
-                    </fieldset>
-                </form>
-            </div>
+            {{ form_end(form) }}
         </div>
+
     </div>
 
 

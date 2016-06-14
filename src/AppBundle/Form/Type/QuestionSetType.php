@@ -3,30 +3,31 @@
  * Created by PhpStorm.
  * User: spreling
  * Date: 14-6-2016
- * Time: 12:47
+ * Time: 17:13
  */
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
+
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class EvaluationForm extends AbstractType
+class QuestionSetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('title')
-            ->add('question', TextareaType::class);
+        $builder->add('questions', CollectionType::class, array(
+            'label' => 'question block',
+            'entry_type' => QuestionType::class
+        ));
+
     }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Post'
+            'data_class' => 'AppBundle\Entity\Evaluation'
         ));
     }
 }

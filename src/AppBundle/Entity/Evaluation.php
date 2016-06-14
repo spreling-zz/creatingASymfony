@@ -101,6 +101,18 @@ class Evaluation
     }
 
     /**
+     * Add questions
+     *
+     * @param array<\AppBundle\Entity\Question> $questions
+     * @return Evaluation
+     */
+    public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+        return $this;
+    }
+
+    /**
      * Remove questions
      *
      * @param \AppBundle\Entity\Question $questions
