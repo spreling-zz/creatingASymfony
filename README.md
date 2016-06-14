@@ -1,0 +1,2 @@
+# creatingASymfony
+Example symfony project
