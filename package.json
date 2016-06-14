@@ -1,0 +1,32 @@
+{
+    "name": "creatingASymfony",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "author": [
+        "Harm Jacob Drijfhout <spreling@gmail.nl>"
+    ],
+    "license": "Private",
+    "dependencies": {
+        "jquery": "*",
+        "lodash": "^4.11.1"
+    },
+    "devDependencies": {
+        "grunt-cli": "1.2.0",
+        "grunt": "^0.4.5",
+        "grunt-bower-task": "~0.4.0",
+        "grunt-shell": "^0.7.0",
+        "grunt-webpack": "*",
+        "webpack": "^1.13.0",
+        "sass-loader": "^3.1.2",
+        "style-loader": "*",
+        "expose-loader": "^0.7.1",
+        "css-loader": "*",
+        "extract-text-webpack-plugin": "*",
+        "html-webpack-plugin": "^2.16.0",
+        "load-grunt-config": "*",
+        "node-sass": "*",
+        "ts-loader": "*",
+        "typescript": "*"
+    }
+}

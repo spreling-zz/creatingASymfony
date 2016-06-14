@@ -1,0 +1,6 @@
+[core]
+  ignorecase = false
+[color]
+  ui = true
+[alias]
+  ignored = git config --global user.name "Harm Jacob Drijfhout" ls-files -v | grep "^[[:lower:]]"
