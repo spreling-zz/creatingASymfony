@@ -1,6 +1,9 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-lucky_number:
+main:
     path:     /
     defaults: { _controller: AppBundle:main }
+evaluation_create:
+    path:     /evaluation/mock
+    defaults: { _controller: AppBundle:Evaluation:mockEvaluation }

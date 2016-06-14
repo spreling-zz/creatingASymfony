@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,13 +33,16 @@ class Evaluation
      */
     private $name;
 
+
     /**
-     *
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="evaluation")
      */
     private $questions;
 
-
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+    }
     /**
      * Get id
      *
@@ -72,26 +76,37 @@ class Evaluation
         return $this->name;
     }
 
+
     /**
-     * Set questions
+     * Get questions
      *
-     * @param integer $questions
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+
+    /**
+     * Add questions
+     *
+     * @param \AppBundle\Entity\Question $questions
      * @return Evaluation
      */
-    public function setQuestions($questions)
+    public function addQuestion(\AppBundle\Entity\Question $questions)
     {
-        $this->questions = $questions;
+        $this->questions[] = $questions;
 
         return $this;
     }
 
     /**
-     * Get questions
+     * Remove questions
      *
-     * @return integer
+     * @param \AppBundle\Entity\Question $questions
      */
-    public function getQuestions()
+    public function removeQuestion(\AppBundle\Entity\Question $questions)
     {
-        return $this->questions;
+        $this->questions->removeElement($questions);
     }
 }

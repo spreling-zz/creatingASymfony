@@ -22,12 +22,24 @@ class Question
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="question", type="string", length=255)
+     */
+    private $question;
+
+    /**
      * @var int
      *
-     * @ORM\Column(name="anwser", type="int", length=2)
+     * @ORM\Column(name="anwserType", type="integer", length=2)
      */
-    private $anwser;
+    private $anwserType;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="questions")
+     * @ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")
+     */
+    private $evaluation;
 
     /**
      * Get id
@@ -39,26 +51,74 @@ class Question
         return $this->id;
     }
 
+
+
     /**
-     * Set anwser
+     * Set anwserType
      *
-     * @param \int $anwser
+     * @param integer $anwserType
      * @return Question
      */
-    public function setAnwser($anwser)
+    public function setAnwserType($anwserType)
     {
-        $this->anwser = $anwser;
+        $this->anwserType = $anwserType;
 
         return $this;
     }
 
     /**
-     * Get anwser
+     * Get anwserType
      *
-     * @return \int
+     * @return integer
      */
-    public function getAnwser()
+    public function getAnwserType()
     {
-        return $this->anwser;
+        return $this->anwserType;
+    }
+
+    /**
+     * Set question
+     *
+     * @param string $question
+     * @return Question
+     */
+    public function setQuestion($question)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return string
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * Set evaluation
+     *
+     * @param \AppBundle\Entity\Evaluation $evaluation
+     * @return Question
+     */
+    public function setEvaluation(\AppBundle\Entity\Evaluation $evaluation = null)
+    {
+        $this->evaluation = $evaluation;
+
+        return $this;
+    }
+
+    /**
+     * Get evaluation
+     *
+     * @return \AppBundle\Entity\Evaluation
+     */
+    public function getEvaluation()
+    {
+        return $this->evaluation;
     }
 }

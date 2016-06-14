@@ -18,11 +18,10 @@ class MainController extends Controller
      */
     public function showAction()
     {
+        $evaluationController = new EvaluationController();
+
+
         $evaluation = new Evaluation();
-
-        $evaluation->setName('test');
-        $evaluation->setQuestions('kaas');
-
         $form = $this->createFormBuilder($evaluation)
             ->add('name', TextType::class)
 /*
