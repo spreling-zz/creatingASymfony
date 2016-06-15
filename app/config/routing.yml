@@ -7,3 +7,5 @@ main:
 evaluation_create:
     path:     /evaluation/mock
     defaults: { _controller: AppBundle:Evaluation:mockEvaluation }
+submission_create:
+    path: /submission/create
