@@ -49,9 +49,18 @@ class MainController extends Controller
     public function showAction(Request $request)
     {
         //Get evaluation data
-        $evaluation = $this->getEvaluation(9); //todo for now it uses a fixed evaluation number
+        $eva = $this->getDoctrine()->getRepository('AppBundle:Evaluation')->findAll();
+        /*@var Evaluation $evaluation */
+        $evaluation = array_pop($eva); //todo for now it uses the first evaluation it can find. Can do better.
 
-
+        if (empty($evaluation)) {
+            return new Response($this->container->get('templating')->render(
+                'evaluation/submission.html.twig',
+                array(
+                    'message' => 'There are no evaluation in the database. First create a evaluation or use the mockup route'
+                )
+            ));
+        }
         /*
         * Ik heb geprobberd het formulier middels het active record systeem van symfony te genereren maar dat is
         * niet gelukt. Niet in deze korte tijd. De regel hieronder werkt alleen precies andersom. inplaats van het weergeven
