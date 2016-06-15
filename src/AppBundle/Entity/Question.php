@@ -8,6 +8,8 @@
  */
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\submission\Result;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,11 +50,11 @@ class Question
     private $question;
 
     /**
-     * @var int $anwserType - the Type of awnser related to the question
+     * @var integer $answerType - the Type of awnser related to the question
      *
-     * @ORM\Column(name="anwserType", type="integer", length=2)
+     * @ORM\Column(name="answerType", type="integer", length=2)
      */
-    private $anwserType;
+    private $answerType;
 
     /**
      * @var Evaluation - The parent Evaluation Object
@@ -61,6 +63,20 @@ class Question
      * @ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")
      */
     private $evaluation;
+
+    /**
+     * @var Result $results - collection of results about this specific question
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\submission\Result", mappedBy="question")
+     */
+    private $results;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->results = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * getId - Getter for id
@@ -74,33 +90,31 @@ class Question
         return $this->id;
     }
 
-
-
     /**
-     * setAnwserType - Setter for AnwserType
+     * setAnswerType - Setter for answerType
      *
-     * Setter to set the AnwserType variable
+     * Setter to set the answerType variable
      *
-     * @param integer $anwserType
+     * @param integer $answerType
      * @return Question
      */
-    public function setAnwserType($anwserType)
+    public function setAnswerType($answerType)
     {
-        $this->anwserType = $anwserType;
+        $this->answerType = $answerType;
 
         return $this;
     }
 
     /**
-     * getAnwserType - Getter for anwserType
+     * getAnswerType - Getter for answerType
      *
-     * Getter to get the name variable
+     * Getter to get the answerType variable
      *
      * @return integer
      */
-    public function getAnwserType()
+    public function getAnswerType()
     {
-        return $this->anwserType;
+        return $this->answerType;
     }
 
     /**
@@ -155,5 +169,44 @@ class Question
     public function getEvaluation()
     {
         return $this->evaluation;
+    }
+
+    /**
+     * addResults - Add method to add one result
+     *
+     * Add method to add one Result to the Result collection
+     *
+     * @param \AppBundle\Entity\submission\Result $results
+     * @return Question
+     */
+    public function addResult(\AppBundle\Entity\submission\Result $results)
+    {
+        $this->results[] = $results;
+
+        return $this;
+    }
+
+    /**
+     * removeResult - Remove method to remove one Result
+     *
+     * Remove method to remove one Result form the Result collection
+     *
+     * @param \AppBundle\Entity\submission\Result $results
+     */
+    public function removeResult(\AppBundle\Entity\submission\Result $results)
+    {
+        $this->results->removeElement($results);
+    }
+
+    /**
+     * getResults - Getter for the Result collection
+     *
+     * Getter to get the collection of Result Objects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResults()
+    {
+        return $this->results;
     }
 }

@@ -12,6 +12,7 @@ use AppBundle\Entity\Evaluation;
 use AppBundle\Form\Type\TenChoiceQuestionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,20 +39,17 @@ class MainController extends Controller
      *
      * @access public
      * @since 1.0
+     * @version 1.5
      * @Route("/")
      *
+     * @param Request|null $request
      * @return Response
+     * @throws \Twig_Error
      */
-    public function showAction()
+    public function showAction(Request $request)
     {
         //Get evaluation data
-        $evaluation = $this->getDoctrine()
-            ->getRepository('AppBundle:Evaluation')
-            ->find(9); //todo for now it uses a fixed evaluation number
-
-        //Get question which are associated with the evaluation
-        $questions = $evaluation->getQuestions();
-
+        $evaluation = $this->getEvaluation(9); //todo for now it uses a fixed evaluation number
 
 
         /*
@@ -67,19 +65,23 @@ class MainController extends Controller
 
         //manual form building
         $form = $this->createFormBuilder();
-
         //inserting questions for the database in the form
-        foreach ($questions as $question) {
+        foreach ($evaluation->getQuestions() as $question) {
             $form->add('selfQuestions_' . $question->getId(),
                 TenChoiceQuestionType::class, array(
                     'label' => $question->getQuestion()
                 ));
         }
-        //send button
         $form = $form->add('send', SubmitType::class)
             ->getForm();
 
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            // ... perform some action, such as saving the task to the database
+            echo "yaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
+        }
         //building template
         return new Response($this->container->get('templating')->render(
             'main/main.html.twig',
@@ -87,5 +89,16 @@ class MainController extends Controller
                 'form' => $form->createView()
             )
         ));
+    }
+
+    /**
+     * @param $id
+     * @return Evaluation
+     */
+    private function getEvaluation($id)
+    {
+        return $this->getDoctrine()
+            ->getRepository('AppBundle:Evaluation')
+            ->find(9); //todo for now it uses a fixed evaluation number
     }
 }

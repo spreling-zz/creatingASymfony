@@ -44,13 +44,24 @@ class Evaluation
      */
     private $name;
 
-
+    /**
+     * @var ArrayCollection<Result> - Collection of submission
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\submission\Submission", mappedBy="evaluation")
+     */
+    private $submissions;
     /**
      * @var ArrayCollection<Question> $questions - collection of questions belonging to the evaluation
      * @ORM\OneToMany(targetEntity="Question", mappedBy="evaluation")
      */
     private $questions;
 
+    /**
+     * __construct - function to construct the class
+     *
+     * Constructor function for this class. It creates a empty ArrayCollection for the Question collection
+     *
+     * @name __construct
+     */
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -150,5 +161,44 @@ class Evaluation
         $this->questions->removeElement($questions);
 
         return $this;
+    }
+
+    /**
+     * addSubmission - Add method to add one Submission
+     *
+     * Add method to add one Submission to the Submission collection
+     *
+     * @param \AppBundle\Entity\submission\Submission $submissions
+     * @return Evaluation
+     */
+    public function addSubmission(\AppBundle\Entity\submission\Submission $submissions)
+    {
+        $this->submissions[] = $submissions;
+
+        return $this;
+    }
+
+    /**
+     * removeSubmission - Remove method to remove one Submission
+     *
+     * Remove method to remove one Submission form the Submission collection
+     *
+     * @param \AppBundle\Entity\submission\Submission $submissions
+     */
+    public function removeSubmission(\AppBundle\Entity\submission\Submission $submissions)
+    {
+        $this->submissions->removeElement($submissions);
+    }
+
+    /**
+     * getSubmissions - Getter for Submission
+     *
+     * Getter to get the Submission variable
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubmissions()
+    {
+        return $this->submissions;
     }
 }
