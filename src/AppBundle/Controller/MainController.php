@@ -11,31 +11,41 @@ use Symfony\Component\HttpFoundation\Response;
 class MainController extends Controller
 {
     /**
+     * showAction - function which generator the main page
+     *
+     * This method is the default methode which is used when visiting the main page.
+     *
+     * @access public
+     * @since 1.0
      * @Route("/")
      */
     public function showAction()
     {
+        //Get evaluation data
         $evaluation = $this->getDoctrine()
             ->getRepository('AppBundle:Evaluation')
-            ->find(9);
+            ->find(9); //todo for now it uses a fixed evaluation number
 
+        //Get question which are associated with the evaluation
         $questions = $evaluation->getQuestions();
 
-        dump($evaluation);
-
-        $evaluation = new Evaluation();
-        $evaluation->setQuestions($questions);
 
 
-        /*Ik heb geprobberd het formulier middels het active record systeem van symfony te genereren maar dat is
-        niet gelukt. Niet in deze korte tijd. De regel hieronder werkt alleen precies andersom. inplaats van het weergeven
-        van de vragen met de antwoordveld. kan je de vragen zelf aanpassen. voor nu heb ik daarom een handmatig formulier
-        gebouwd.
+        /*
+        * Ik heb geprobberd het formulier middels het active record systeem van symfony te genereren maar dat is
+        * niet gelukt. Niet in deze korte tijd. De regel hieronder werkt alleen precies andersom. inplaats van het weergeven
+        * van de vragen met de antwoordveld. kan je de vragen zelf aanpassen. voor nu heb ik daarom een handmatig formulier
+        * gebouwd.
         */
+        //$evaluation = new Evaluation();
+        //$evaluation->setQuestions($questions);
         //$form = $this->createForm(QuestionSetType::class, $evaluation);
 
+
+        //manual form building
         $form = $this->createFormBuilder();
 
+        //inserting questions for the database in the form
         foreach ($questions as $question) {
             $form->add('selfQuestions_' . $question->getId(),
                 TenChoiceQuestionType::class, array(
