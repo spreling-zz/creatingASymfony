@@ -1,11 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: spreling
- * Date: 14-6-2016
- * Time: 15:55
+ * EvaluationController.php
+ *
+ * This file contains the EvaluationController class
+ *
+ * @package AppBundle\Controller
  */
-
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Evaluation;
@@ -13,8 +13,38 @@ use AppBundle\Entity\Question;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class EvaluationController - The class repesents the REST API of the Evaluation model
+ *
+ * This controller is a REST API for the Evaluation model with it you can create read update
+ * and delete evaluation out of the database
+ *
+ * @author Spreling - Harm Jacob Drijfhout Email: Spreling@gmail.com
+ * @version 1.0
+ * @since 1.0
+ * @copyright Spreling
+ * @license MIT
+ * @abstract REST API of the Evaluation model
+ * @package AppBundle\Controller
+ *
+ * @todo Create the update methode
+ * @todo Create the read methode
+ * @todo Create the delete methode
+ */
 class EvaluationController extends Controller
 {
+    /**
+     * mockEvaluationAction - function create a mockup evaluation for testing
+     *
+     * This method create a mockup evaluation. It's meant for testing purposese. It contains
+     * hardcoded question and will be the same everytime
+     *
+     * @access public
+     * @since 1.0
+     * @Route("/evaluation/mock")
+     *
+     * @return Response
+     */
     public function mockEvaluationAction()
     {
         return $this->createEvaluationAction(array(
@@ -29,6 +59,17 @@ class EvaluationController extends Controller
         ));
     }
 
+    /**
+     * createEvaluationAction - This is the create method of the REST API
+     *
+     * This method is the create part of the Evaluation REST API. It can be used through
+     * post request to added new evaluation to the database
+     *
+     * @todo Change the create methode so it works by a standard post request
+     *
+     * @param mixed[] $evaluationBlob - an array of evaluation data
+     * @return Response
+     */
     public function createEvaluationAction($evaluationBlob)
     {
         $evaluation = new Evaluation();

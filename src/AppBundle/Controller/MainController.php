@@ -1,4 +1,11 @@
 <?php
+/**
+ * MainController.php
+ *
+ * This file contains the MainController class
+ *
+ * @package AppBundle\Controller
+ */
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Evaluation;
@@ -8,6 +15,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class MainController - The class render the main page
+ *
+ * This Controller show depending on the route request the main page
+ * The main page contains the dynamic generated evaluation form
+ *
+ * @author Spreling - Harm Jacob Drijfhout Email: Spreling@gmail.com
+ * @version 1.0
+ * @since 1.0
+ * @copyright Spreling
+ * @license MIT
+ * @abstract This class renders the main page
+ * @package AppBundle\Controller
+ */
 class MainController extends Controller
 {
     /**
@@ -18,6 +39,8 @@ class MainController extends Controller
      * @access public
      * @since 1.0
      * @Route("/")
+     *
+     * @return Response
      */
     public function showAction()
     {
@@ -52,18 +75,17 @@ class MainController extends Controller
                     'label' => $question->getQuestion()
                 ));
         }
+        //send button
         $form = $form->add('send', SubmitType::class)
             ->getForm();
 
-        $html = $this->container->get('templating')->render(
+
+        //building template
+        return new Response($this->container->get('templating')->render(
             'main/main.html.twig',
             array(
                 'form' => $form->createView()
             )
-        );
-
-        return new Response(
-            $html
-        );
+        ));
     }
 }
