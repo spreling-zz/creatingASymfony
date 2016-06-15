@@ -51,7 +51,7 @@ class Submission
     /**
      * @var User - The owner User Object
      *
-     * @ORM\OneToOne(targetEntity="User", inversedBy="submission")
+     * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -138,6 +138,20 @@ class Submission
     {
         return $this->user;
     }
+    /**
+     * setResults - Setter for Results
+     *
+     * Setter to set the Results variable with a new set of Results
+     *
+     * @param ArrayCollection<Result> $results
+     * @return Submission - Self
+     */
+    public function setResults($results)
+    {
+        $this->results = $results;
+
+        return $this;
+    }
 
     /**
      * addResult - Add method to add one Result
@@ -145,7 +159,7 @@ class Submission
      * Add method to add one Result to the Result collection
      *
      * @param \AppBundle\Entity\submission\Result $results
-     * @return Submission
+     * @return Submission - Self
      */
     public function addResult(\AppBundle\Entity\submission\Result $results)
     {

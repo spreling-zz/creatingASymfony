@@ -1,6 +1,6 @@
 <?php
 /**
- * EvaluationController.php
+ * EvaluationGeneratorController.php
 *
  * This file contains the EvaluationController class
  *
@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
- * Class EvaluationController - The class repesents the REST API of the Evaluation model
+ * Class EvaluationGeneratorController - The class repesents the REST API of the Evaluation model
  *
  * This controller is a REST API for the Evaluation model with it you can create read update
  * and delete evaluation out of the database
@@ -31,7 +31,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * @todo Create the read methode
  * @todo Create the delete methode
  */
-class EvaluationController extends Controller
+class EvaluationGeneratorController extends Controller
 {
     /**
      * mockEvaluationAction - function create a mockup evaluation for testing

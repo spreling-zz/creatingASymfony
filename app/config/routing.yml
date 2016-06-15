@@ -6,6 +6,6 @@ main:
     defaults: { _controller: AppBundle:main }
 evaluation_create:
     path:     /evaluation/mock
-    defaults: { _controller: AppBundle:Evaluation:mockEvaluation }
+    defaults: { _controller: AppBundle:EvaluationGenerator:mockEvaluation }
 submission_create:
     path: /submission/create

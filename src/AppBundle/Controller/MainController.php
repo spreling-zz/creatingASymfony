@@ -67,7 +67,7 @@ class MainController extends Controller
         $form = $this->createFormBuilder();
         //inserting questions for the database in the form
         foreach ($evaluation->getQuestions() as $question) {
-            $form->add('selfQuestions_' . $question->getId(),
+            $form->add($question->getId(),
                 TenChoiceQuestionType::class, array(
                     'label' => $question->getQuestion()
                 ));
@@ -78,13 +78,17 @@ class MainController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // ... perform some action, such as saving the task to the database
-            echo "yaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            $response = $this->forward('AppBundle:Submission:createSubmission', array(
+                'clientIp' => $this->container->get('request')->getClientIp(),
+                'formData' => $form->getData(),
+                'evaluation' => $evaluation
+            ));
 
+            return $response;
         }
-        //building template
+
         return new Response($this->container->get('templating')->render(
-            'main/main.html.twig',
+            'evaluation/evaluationForm.html.twig',
             array(
                 'form' => $form->createView()
             )

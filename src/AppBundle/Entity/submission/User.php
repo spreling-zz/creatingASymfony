@@ -53,7 +53,7 @@ class User
     /**
      * @var Submission - users submission
      *
-     * @ORM\OneToOne(targetEntity="Submission", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="Submission")
      * @ORM\JoinColumn(name="submission_id", referencedColumnName="id")
      */
     private $submission;
@@ -61,7 +61,7 @@ class User
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -84,7 +84,7 @@ class User
     /**
      * Get hash
      *
-     * @return string 
+     * @return string
      */
     public function getHash()
     {
@@ -107,7 +107,7 @@ class User
     /**
      * Get ipAdress
      *
-     * @return integer 
+     * @return integer
      */
     public function getIpAdress()
     {
@@ -130,7 +130,7 @@ class User
     /**
      * Get submission
      *
-     * @return \AppBundle\Entity\submission\Submission 
+     * @return \AppBundle\Entity\submission\Submission
      */
     public function getSubmission()
     {
