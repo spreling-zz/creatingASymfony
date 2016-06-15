@@ -1,11 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: spreling
- * Date: 14-6-2016
- * Time: 13:05
+ * TenChoiceQuestionType.php
+ *
+ * This file contains the QuestionSetType class
+ *
+ * @package AppBundle\Controller
  */
-
 namespace AppBundle\Form\Type;
 
 
@@ -14,9 +14,27 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
+/**
+ * Class TenChoiceQuestionType - This class represents a form type for Ten Choice Question
+ *
+ * This Type is a form type used to build a form. It's used to build a question field
+ * where the question has ten options to chooce from (for example a rating form 10 to 1)
+ *
+ * @author Spreling - Harm Jacob Drijfhout Email: Spreling@gmail.com
+ * @version 1.0
+ * @since 1.0
+ * @copyright Spreling
+ * @license MIT
+ * @package AppBundle\Form\Type
+ *
+ */
 class TenChoiceQuestionType extends AbstractType
 {
-
+    /**
+     * {@inheritdoc}
+     *
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -37,6 +55,10 @@ class TenChoiceQuestionType extends AbstractType
         ));
     }
 
+    /**
+     * Return the parent form type which is the Choice Type
+     * @return ChoiceType::class
+     */
     public function getParent()
     {
         return ChoiceType::class;
