@@ -1,18 +1,29 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: spreling
- * Date: 14-6-2016
- * Time: 12:54
+ * Evaluation.php
+ *
+ * This file contains the Evaluation Model class
+ *
+ * @package AppBundle\Entity
  */
-
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Evaluation
+ * Class Evaluation - The Evaluation object Model
+ *
+ * The Model contains all the information related to a evaluation. This model
+ * is used to generated a evaluation form
+ *
+ * @author Spreling - Harm Jacob Drijfhout Email: Spreling@gmail.com
+ * @version 1.0
+ * @since 1.0
+ * @copyright Spreling
+ * @license MIT
+ * @abstract This class renders the main page
+ * @package AppBundle\Entity
  *
  * @ORM\Entity
  * @ORM\Table(name="evaluation")
@@ -20,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Evaluation
 {
     /**
-     * @var int
+     * @var integer $id - unique identifier
      *
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -28,13 +39,14 @@ class Evaluation
      */
     private $id;
     /**
-     * @var string
+     * @var string $name - the name of the evaluation
      * @ORM\Column(type="string", length=100)
      */
     private $name;
 
 
     /**
+     * @var ArrayCollection<Question> $questions - collection of questions belonging to the evaluation
      * @ORM\OneToMany(targetEntity="Question", mappedBy="evaluation")
      */
     private $questions;
@@ -43,8 +55,11 @@ class Evaluation
     {
         $this->questions = new ArrayCollection();
     }
+
     /**
-     * Get id
+     * getId - Getter for id
+     *
+     * Getter to get the unique identifier variable
      *
      * @return integer
      */
@@ -54,10 +69,12 @@ class Evaluation
     }
 
     /**
-     * Set name
+     * setName - Setter for name
+     *
+     * Setter to set the name variable
      *
      * @param string $name
-     * @return Evaluation
+     * @return Evaluation - Self
      */
     public function setName($name)
     {
@@ -67,7 +84,9 @@ class Evaluation
     }
 
     /**
-     * Get name
+     * getName - Getter for name
+     *
+     * Getter to get the name variable
      *
      * @return string
      */
@@ -78,7 +97,9 @@ class Evaluation
 
 
     /**
-     * Get questions
+     * getQuestions - Getter for the questions collection
+     *
+     * Getter to get the collection of Question Objects
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -88,10 +109,26 @@ class Evaluation
     }
 
     /**
-     * Add questions
+     * setQuestion - Setter for Question
+     *
+     * Setter to set the Question variable with a new set of Questions
+     *
+     * @param ArrayCollection<Question> $Question
+     * @return Evaluation - Self
+     */
+    public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+        return $this;
+    }
+
+    /**
+     * addQuestion - Add method to add one Question
+     *
+     * Add method to add one Question to the Questions collection
      *
      * @param \AppBundle\Entity\Question $questions
-     * @return Evaluation
+     * @return Evaluation - Self
      */
     public function addQuestion(\AppBundle\Entity\Question $questions)
     {
@@ -101,24 +138,17 @@ class Evaluation
     }
 
     /**
-     * Add questions
+     * removeQuestions - Remove method to remove one Question
      *
-     * @param array<\AppBundle\Entity\Question> $questions
-     * @return Evaluation
-     */
-    public function setQuestions($questions)
-    {
-        $this->questions = $questions;
-        return $this;
-    }
-
-    /**
-     * Remove questions
+     * Remove method to remove one Question form the Question collection
      *
      * @param \AppBundle\Entity\Question $questions
+     * @return Evaluation - self
      */
     public function removeQuestion(\AppBundle\Entity\Question $questions)
     {
         $this->questions->removeElement($questions);
+
+        return $this;
     }
 }

@@ -1,11 +1,30 @@
 <?php
-
+/**
+ * Question.php
+ *
+ * This file contains the Question Model class
+ *
+ * @package AppBundle\Entity
+ */
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Question
+ * Class Question - The Question object Model
+ *
+ * The Model contains all the information related to a question. This model
+ * is used by the Evaluation model in a one-to-many relation
+ *
+ * @author Spreling - Harm Jacob Drijfhout Email: Spreling@gmail.com
+ * @version 1.0
+ * @since 1.0
+ * @copyright Spreling
+ * @license MIT
+ * @abstract This class renders the main page
+ * @package AppBundle\Entity
+ *
+ * @see Evaluation
  *
  * @ORM\Table(name="question")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\QuestionRepository")
@@ -13,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Question
 {
     /**
-     * @var int
+     * @var integer $id - unique identifier
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,27 +41,31 @@ class Question
     private $id;
 
     /**
-     * @var string
+     * @var string $question - the text of the question
      *
      * @ORM\Column(name="question", type="string", length=255)
      */
     private $question;
 
     /**
-     * @var int
+     * @var int $anwserType - the Type of awnser related to the question
      *
      * @ORM\Column(name="anwserType", type="integer", length=2)
      */
     private $anwserType;
 
     /**
+     * @var Evaluation - The parent Evaluation Object
+     *
      * @ORM\ManyToOne(targetEntity="Evaluation", inversedBy="questions")
      * @ORM\JoinColumn(name="evaluation_id", referencedColumnName="id")
      */
     private $evaluation;
 
     /**
-     * Get id
+     * getId - Getter for id
+     *
+     * Getter to get the unique identifier variable
      *
      * @return integer
      */
@@ -54,7 +77,9 @@ class Question
 
 
     /**
-     * Set anwserType
+     * setAnwserType - Setter for AnwserType
+     *
+     * Setter to set the AnwserType variable
      *
      * @param integer $anwserType
      * @return Question
@@ -67,7 +92,9 @@ class Question
     }
 
     /**
-     * Get anwserType
+     * getAnwserType - Getter for anwserType
+     *
+     * Getter to get the name variable
      *
      * @return integer
      */
@@ -77,7 +104,9 @@ class Question
     }
 
     /**
-     * Set question
+     * setQuestion - Setter for question
+     *
+     * Setter to set the question variable
      *
      * @param string $question
      * @return Question
@@ -90,7 +119,9 @@ class Question
     }
 
     /**
-     * Get question
+     * getQuestion - Getter for question
+     *
+     * Getter to get the question variable
      *
      * @return string
      */
@@ -100,7 +131,9 @@ class Question
     }
 
     /**
-     * Set evaluation
+     * setEvaluation - Setter to set the parent Evaluation
+     *
+     * Setter to set the parent Evaluation
      *
      * @param \AppBundle\Entity\Evaluation $evaluation
      * @return Question
@@ -113,7 +146,9 @@ class Question
     }
 
     /**
-     * Get evaluation
+     * getEvaluation - Getter to get the parent Evaluation
+     *
+     * Getter to get the parent Evaluation
      *
      * @return \AppBundle\Entity\Evaluation
      */
