@@ -88,7 +88,7 @@ class SubmissionController extends Controller
             $response = new Response($this->container->get('templating')->render(
                 'evaluation/submission.html.twig',
                 array(
-                    'message' => 'Je hebt de eveluatie al ingevuld. Het is de bedoeling dat je deze evaluatie niet 100x vol spam. Ik hou je goed in de gaten.'
+                    'message' => 'Je hebt de eveluatie al ingevuld. Het is de bedoeling dat je deze evaluatie niet 100x vol spam. Ik houd je goed in de gaten.'
                 )
             ));
         }
