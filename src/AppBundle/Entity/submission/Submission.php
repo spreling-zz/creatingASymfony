@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package AppBundle\Entity
  *
  * @ORM\Entity
- * @ORM\Table(name="Submission")
+ * @ORM\Table(name="submission")
  */
 class Submission
 {

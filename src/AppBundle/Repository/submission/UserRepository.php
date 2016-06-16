@@ -18,12 +18,21 @@ class UserRepository extends EntityRepository
     {
         $user = $this->findOneBy(array('ipAdress' => str_replace('.', '', $ip)));
 
+
         if ($user === null) {
-            $user = new User();
-            $user->setSubmission($submission)
-                ->setIpAdress(str_replace('.', '', $ip))
-                ->setHash('randomShit'); //todo dunno why the hash field exist dont think its needed.
+            return false;
         }
+        return $user;
+
+
+    }
+
+    public function createNewUser($ip, $submission)
+    {
+        $user = new User();
+        $user->setSubmission($submission)
+            ->setIpAdress(str_replace('.', '', $ip))
+            ->setHash('randomShit'); //todo dunno why the hash field exist dont think its needed.
         return $user;
     }
 }

@@ -50,8 +50,12 @@ class TenChoiceQuestionType extends AbstractType
                 '9' => 'best',
                 '10' => 'amazing'
             ),
+            'choice_attr' => function($val, $key, $index) {
+                return ['class' => 'choiceTenQuestion_'.($key)];
+            },
             'expanded' => true,
             'choice_label' => false,
+            'choices_as_values' => true
         ));
     }
 

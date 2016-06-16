@@ -45,22 +45,14 @@ class SubmissionController extends Controller
         $submission = new Submission();
         $em = $this->getDoctrine()->getManager();
 
-        //Ik wou hier een methode toevoegen in de Repository maar dat is niet gelukt vandaar dat het hier handmatig onderstaat
-        //$this->getDoctrine()
-        //    ->getRepository('AppBundle:submission\User')
-        //   ->findUserByIpIfExist($clientIp);
-
-        $user = $this->getDoctrine()
+        if (!$this->getDoctrine()
             ->getRepository('AppBundle:submission\User')
-            ->findOneBy(array('ipAdress' => str_replace('.', '', $clientIp)));
-
-        if ($user === null) {
-            $user = new User();
-            $user->setSubmission($submission)
-                ->setIpAdress(str_replace('.', '', $clientIp))
-                ->setHash('randomShit'); //todo dunno why the hash field exist dont think its needed.
+            ->findUserByIpIfExist($clientIp, $submission)
+        ) {
+            $user = $this->getDoctrine()
+                ->getRepository('AppBundle:submission\User')
+                ->createNewUser($clientIp, $submission);
             $em->persist($user);
-
 
             $results = new ArrayCollection();
             foreach ($formData as $questionId => $questionResult) {
@@ -87,7 +79,7 @@ class SubmissionController extends Controller
 
             $response = new Response($this->container->get('templating')->render(
                 'evaluation/submission.html.twig',
-                array (
+                array(
                     'message' => 'Bedankt voor het delen van deze gegevens. We gaan er absolute niks mee doen. Dit is een voorbeeld applicatie gemaakt
                                      voor anderen. Weet niet hoe je aan deze code komt maar deze evaluatie is in iedergeval niet nuttig :P '
                 )
@@ -95,7 +87,7 @@ class SubmissionController extends Controller
         } else {
             $response = new Response($this->container->get('templating')->render(
                 'evaluation/submission.html.twig',
-                array (
+                array(
                     'message' => 'Je hebt de eveluatie al ingevuld. Het is de bedoeling dat je deze evaluatie niet 100x vol spam. Ik hou je goed in de gaten.'
                 )
             ));

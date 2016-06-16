@@ -48,10 +48,9 @@ class MainController extends Controller
      */
     public function showAction(Request $request)
     {
-        //Get evaluation data
-        $eva = $this->getDoctrine()->getRepository('AppBundle:Evaluation')->findAll();
-        /*@var Evaluation $evaluation */
-        $evaluation = array_pop($eva); //todo for now it uses the first evaluation it can find. Can do better.
+        $evaluation= $this->getDoctrine()
+            ->getRepository('AppBundle:Evaluation')
+            ->getFirstEvaluation();
 
         if (empty($evaluation)) {
             return new Response($this->container->get('templating')->render(
@@ -104,14 +103,4 @@ class MainController extends Controller
         ));
     }
 
-    /**
-     * @param $id
-     * @return Evaluation
-     */
-    private function getEvaluation($id)
-    {
-        return $this->getDoctrine()
-            ->getRepository('AppBundle:Evaluation')
-            ->find(9); //todo for now it uses a fixed evaluation number
-    }
 }
