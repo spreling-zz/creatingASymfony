@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2016 at 05:32 PM
+-- Generation Time: Jun 16, 2016 at 07:40 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -36,9 +36,7 @@ CREATE TABLE `evaluation` (
 --
 
 INSERT INTO `evaluation` (`id`, `name`) VALUES
-(8, 'evaluatie formulier'),
-(9, 'evaluatie formulier'),
-(10, 'evaluatie formulier');
+(9, 'evaluatie formulier');
 
 -- --------------------------------------------------------
 
@@ -58,21 +56,11 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`id`, `evaluation_id`, `answerType`, `question`) VALUES
-(16, 8, 10, 'vraag 1'),
-(17, 8, 10, 'vraag 2'),
-(18, 8, 10, 'vraag 3'),
-(19, 8, 10, 'vraag 4'),
-(20, 8, 10, 'vraag 5'),
 (21, 9, 10, 'Ik sta sterker in mijn schoenen voor het examen door het volgen van deze training'),
 (22, 9, 10, 'Ik heb mijn vakkennis vergroot door het volgen van deze training.'),
 (23, 9, 10, 'Ik begrijp de stof beter door het volgen van deze training.'),
 (24, 9, 10, 'Ik heb meer zelfvertrouwen gekregen door het volgen van deze training.'),
-(25, 9, 10, 'Ik begin gemotiveerder aan het eindexamen door het volgen van deze training.'),
-(26, 10, 10, 'Ik sta sterker in mijn schoenen voor het examen door het volgen van deze training'),
-(27, 10, 10, 'Ik heb mijn vakkennis vergroot door het volgen van deze training.'),
-(28, 10, 10, 'Ik begrijp de stof beter door het volgen van deze training.'),
-(29, 10, 10, 'Ik heb meer zelfvertrouwen gekregen door het volgen van deze training.'),
-(30, 10, 10, 'Ik begin gemotiveerder aan het eindexamen door het volgen van deze training.');
+(25, 9, 10, 'Ik begin gemotiveerder aan het eindexamen door het volgen van deze training.');
 
 -- --------------------------------------------------------
 
@@ -87,6 +75,17 @@ CREATE TABLE `result` (
   `answer` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `result`
+--
+
+INSERT INTO `result` (`id`, `submission_id`, `question_id`, `answer`) VALUES
+(1, 1, 21, 1),
+(2, 1, 22, 2),
+(3, 1, 23, 2),
+(4, 1, 24, 3),
+(5, 1, 25, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +97,13 @@ CREATE TABLE `submission` (
   `evaluation_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `submission`
+--
+
+INSERT INTO `submission` (`id`, `evaluation_id`, `user_id`) VALUES
+(1, 9, 3);
 
 -- --------------------------------------------------------
 
@@ -111,6 +117,13 @@ CREATE TABLE `user` (
   `hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ip_address` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `submission_id`, `hash`, `ip_address`) VALUES
+(3, 1, 'randomShit', 127001);
 
 --
 -- Indexes for dumped tables
@@ -160,27 +173,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `evaluation`
 --
 ALTER TABLE `evaluation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `result`
 --
 ALTER TABLE `result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `submission`
 --
 ALTER TABLE `submission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
