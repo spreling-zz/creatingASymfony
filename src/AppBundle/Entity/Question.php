@@ -28,8 +28,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @see Evaluation
  *
+ * @ORM\Entity
  * @ORM\Table(name="question")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\QuestionRepository")
  */
 class Question
 {
